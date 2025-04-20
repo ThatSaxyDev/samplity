@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:samplity/query_view.dart';
 import 'package:wetrocloud_sdk/models/responses.dart';
 import 'package:wetrocloud_sdk/utils/enums.dart';
 import 'package:wetrocloud_sdk/wetrocloud.dart';
@@ -55,11 +56,21 @@ class _CollectionListPageState extends State<CollectionListPage> {
             itemBuilder: (context, index) {
               final collection = collections[index];
               return ListTile(
-                onTap: () {
+                onLongPress: () {
                   _showInsertBottomSheet(collection: collection);
                 },
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => QueryView(
+                        wetroCloud: widget.wetroCloud,
+                        collection: collection,
+                      ),
+                    ),
+                  );
+                },
                 title: Text(collection.collectionId),
-                subtitle: Text('ID: ${collection.createdAt}'),
+                subtitle: Text('Created At: ${collection.createdAt}'),
               );
             },
           );
@@ -67,6 +78,9 @@ class _CollectionListPageState extends State<CollectionListPage> {
       ),
     );
   }
+
+  bool isLoading = false;
+  bool isDeleting = false;
 
   void _showInsertBottomSheet({required Collection collection}) {
     final resourceController = TextEditingController();
@@ -90,8 +104,38 @@ class _CollectionListPageState extends State<CollectionListPage> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text('Insert Resource',
-                        style: Theme.of(context).textTheme.titleLarge),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Insert Resource',
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                        isDeleting
+                            ? CircularProgressIndicator()
+                            : IconButton(
+                                onPressed: () async {
+                                  setState(() {
+                                    isDeleting = true;
+                                  });
+                                  GenericResponse response =
+                                      await widget.wetroCloud.deleteCollection(
+                                          collectionId:
+                                              collection.collectionId);
+                                  setState(() {
+                                    isDeleting = false;
+                                  });
+                                  if (response.success) {
+                                    Navigator.of(context).pop();
+                                    _refreshCollections();
+                                  }
+                                },
+                                icon: Icon(
+                                  Icons.delete,
+                                  color: Colors.redAccent,
+                                )),
+                      ],
+                    ),
                     const SizedBox(height: 16),
                     TextFormField(
                       initialValue: collection.collectionId,
@@ -137,9 +181,12 @@ class _CollectionListPageState extends State<CollectionListPage> {
                           'Please complete all fields'.log();
                           return;
                         }
+                        setState(() {
+                          isLoading = true;
+                        });
 
                         try {
-                          final response =
+                          InsertResourceResponse response =
                               await widget.wetroCloud.insertResource(
                             collectionId: collection.collectionId,
                             resource: resourceController.text,
@@ -150,9 +197,9 @@ class _CollectionListPageState extends State<CollectionListPage> {
                             _refreshCollections();
                             Navigator.pop(context);
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content:
-                                      Text('Resource inserted successfully')),
+                              SnackBar(
+                                  content: Text(
+                                      'Resource inserted successfully\nTokens: ${response.tokens}')),
                             );
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
@@ -163,6 +210,10 @@ class _CollectionListPageState extends State<CollectionListPage> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text('Error: $e')),
                           );
+                        } finally {
+                          setState(() {
+                            isLoading = false;
+                          });
                         }
                       },
                       child: const Text('Submit'),

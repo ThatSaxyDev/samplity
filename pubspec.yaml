@@ -30,10 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  pay_with_mona:
-    path: ../pay_with_mona_flutter
   wetrocloud_sdk:
-    path: /Users/user/Documents/Dev/doinz/wetrocloud_sdk
+    path: ../wetrocloud_sdk
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
