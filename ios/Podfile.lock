@@ -1,0 +1,67 @@
+PODS:
+  - biometric_signature (6.2.0):
+    - Flutter
+  - device_info_plus (0.0.1):
+    - Flutter
+  - Flutter (1.0.0)
+  - flutter_custom_tabs_ios (2.2.0):
+    - Flutter
+  - flutter_secure_storage (6.0.0):
+    - Flutter
+  - local_auth_darwin (0.0.1):
+    - Flutter
+    - FlutterMacOS
+  - local_auth_signature (1.0.1):
+    - Flutter
+    - SignatureBiometricSwift (~> 1.0.10)
+  - path_provider_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
+  - SignatureBiometricSwift (1.0.10)
+
+DEPENDENCIES:
+  - biometric_signature (from `.symlinks/plugins/biometric_signature/ios`)
+  - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
+  - Flutter (from `Flutter`)
+  - flutter_custom_tabs_ios (from `.symlinks/plugins/flutter_custom_tabs_ios/ios`)
+  - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
+  - local_auth_darwin (from `.symlinks/plugins/local_auth_darwin/darwin`)
+  - local_auth_signature (from `.symlinks/plugins/local_auth_signature/ios`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+
+SPEC REPOS:
+  trunk:
+    - SignatureBiometricSwift
+
+EXTERNAL SOURCES:
+  biometric_signature:
+    :path: ".symlinks/plugins/biometric_signature/ios"
+  device_info_plus:
+    :path: ".symlinks/plugins/device_info_plus/ios"
+  Flutter:
+    :path: Flutter
+  flutter_custom_tabs_ios:
+    :path: ".symlinks/plugins/flutter_custom_tabs_ios/ios"
+  flutter_secure_storage:
+    :path: ".symlinks/plugins/flutter_secure_storage/ios"
+  local_auth_darwin:
+    :path: ".symlinks/plugins/local_auth_darwin/darwin"
+  local_auth_signature:
+    :path: ".symlinks/plugins/local_auth_signature/ios"
+  path_provider_foundation:
+    :path: ".symlinks/plugins/path_provider_foundation/darwin"
+
+SPEC CHECKSUMS:
+  biometric_signature: ea4077f6816d9e9a8c81b110e772c3b6ac990164
+  device_info_plus: bf2e3232933866d73fe290f2942f2156cdd10342
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  flutter_custom_tabs_ios: 194897f423eb72b086009d34136ada2fa321cda2
+  flutter_secure_storage: d33dac7ae2ea08509be337e775f6b59f1ff45f12
+  local_auth_darwin: 66e40372f1c29f383a314c738c7446e2f7fdadc3
+  local_auth_signature: 5526cf4d92cc893cefc6368926aefb34f124a07d
+  path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
+  SignatureBiometricSwift: e8f35299350fe33b93e7a1342ccb88448c80ff98
+
+PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
+
+COCOAPODS: 1.15.2
